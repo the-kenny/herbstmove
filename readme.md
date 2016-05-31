@@ -15,3 +15,13 @@ It's written in Rust.
 # Usage
 
     ./herbstmove
+
+# Bugs
+
+- It's not possible to configure the cooldown after a mouse-movement.
+
+- Moving the focus to an empty frame in Herbstluftwm isn't handled
+  gracefully (will center the cursor on the center of the root
+  window).
+
+- Error Handling is missing for most calls to X11.
