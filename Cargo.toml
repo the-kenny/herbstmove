@@ -5,6 +5,7 @@ authors = ["Moritz Ulrich <moritz@tarn-vedra.de>"]
 
 [dependencies]
 libc = "*"
+getopts = "0.2"
 
 [dependencies.x11]
 version = "2.5.1"

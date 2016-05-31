@@ -1,15 +1,43 @@
 extern crate x11;
 extern crate libc;
+extern crate getopts;
 
 use x11::xlib::*;
 use std::os::raw::{c_uchar};
 use std::ptr::{null,null_mut};
 
-use std::{mem};
+use std::{env, mem, u64};
+use std::str::FromStr;
 use std::time::{Duration,Instant};
 
+use getopts::Options;
+
+fn print_usage(program: &str, opts: Options) {
+    let brief = format!("Usage: {} [options]", program);
+    print!("{}", opts.usage(&brief));
+}
+
 fn main () {
-  
+  let args: Vec<String> = env::args().collect();
+
+  let mut opts = Options::new();
+  opts.optopt("c", "cooldown", "Sets cooldown period after mouse movements", "MILLIS");
+  opts.optflag("h", "help", "print this help menu");
+  let matches = match opts.parse(&args[1..]) {
+    Ok(m) => { m }
+    Err(f) => { panic!(f.to_string()) }
+  };
+
+  if matches.opt_present("h") {
+    print_usage(&args[0], opts);
+    return;
+  }
+
+  let cooldown = matches.opt_str("c")
+    .and_then(|s| u64::from_str(&s).ok())
+    .unwrap_or(50);
+  let cooldown = Duration::from_millis(cooldown);
+
   unsafe {
     let display = XOpenDisplay(null());
     if display == null_mut() {
@@ -38,7 +66,7 @@ fn main () {
     loop {
       XNextEvent(display, &mut event);
       if event.get_type() == FocusIn {
-        if (Instant::now() - last_movement) > Duration::from_millis(50) {
+        if (Instant::now() - last_movement) > cooldown {
           // Sleep to give the window manager time to change the focus
           std::thread::sleep(Duration::from_millis(20));
 
