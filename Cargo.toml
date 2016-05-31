@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Moritz Ulrich <moritz@tarn-vedra.de>"]
 
 [dependencies]
-libc = "*"
+libc = "0.2"
 getopts = "0.2"
 
 [dependencies.x11]
