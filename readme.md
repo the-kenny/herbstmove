@@ -23,3 +23,5 @@ It's written in Rust.
   window).
 
 - Error Handling is missing for most calls to X11.
+
+- Empty frames (in Herbstluftwm) are handled in a strange manner

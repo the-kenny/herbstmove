@@ -4,3 +4,4 @@
 
 - Allow Black-/Whitelists of window classes, titles, etc.
 
+- Logging
