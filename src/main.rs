@@ -3,7 +3,7 @@ extern crate libc;
 extern crate getopts;
 
 use x11::xlib::*;
-use std::os::raw::{c_uchar};
+use std::os::raw::c_uchar;
 use std::ptr::{null,null_mut};
 
 use std::{env, mem, u64};
@@ -49,7 +49,7 @@ fn main () {
     {
       use x11::xinput2::*;
       let mut mask = XIEventMask::default();
-      let mut mask1: [u8; 4] = [0,0,0,0];
+      let mut mask1: [u8; 4] = [0; 4];
       XISetMask(&mut mask1, XI_RawMotion);
       mask.deviceid = XIAllMasterDevices;
       mask.mask_len = mem::size_of::<[c_uchar; 4]>() as i32;
