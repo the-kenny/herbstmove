@@ -71,24 +71,29 @@ fn main () {
           // Sleep to give the window manager time to change the focus
           std::thread::sleep(Duration::from_millis(20));
 
+          // Get focused Window
           let mut window = mem::uninitialized();
           let mut ret = 0;
           XGetInputFocus(display, &mut window, &mut ret);
-          
-          let mut attrs: XWindowAttributes = std::mem::uninitialized();
-          if XGetWindowAttributes(display, window, &mut attrs) != 1 {
-            panic!("Failed to get window attributes")
-          }
 
-          XWarpPointer(display, 0, window,
-                       0, 0,
-                       0, 0,
-                       attrs.width/2, attrs.height/2);
-
+          // Move Focus
+          move_focus(display, window);
         }
       } else if event.get_type() == GenericEvent {
         last_movement = Instant::now();
       }
     }
   }
+}
+
+unsafe fn move_focus(display: *mut Display, window: Window) {
+  let mut attrs: XWindowAttributes = std::mem::uninitialized();
+  if XGetWindowAttributes(display, window, &mut attrs) != 1 {
+    panic!("Failed to get window attributes");
+  }
+
+  XWarpPointer(display, 0, window,
+               0, 0,
+               0, 0,
+               attrs.width/2, attrs.height/2);
 }
