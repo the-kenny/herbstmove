@@ -13,8 +13,8 @@ use std::time::{Duration,Instant};
 use getopts::Options;
 
 fn print_usage(program: &str, opts: Options) {
-    let brief = format!("Usage: {} [options]", program);
-    print!("{}", opts.usage(&brief));
+  let brief = format!("Usage: {} [options]", program);
+  print!("{}", opts.usage(&brief));
 }
 
 fn main () {
@@ -36,6 +36,7 @@ fn main () {
   let cooldown = matches.opt_str("c")
     .and_then(|s| u64::from_str(&s).ok())
     .unwrap_or(50);
+  println!("Using a cooldown period of {}ms", cooldown);
   let cooldown = Duration::from_millis(cooldown);
 
   unsafe {
@@ -49,7 +50,7 @@ fn main () {
     {
       use x11::xinput2::*;
       let mut mask = XIEventMask::default();
-      let mut mask1: [u8; 4] = [0; 4];
+      let mut mask1 = [0; 4];
       XISetMask(&mut mask1, XI_RawMotion);
       mask.deviceid = XIAllMasterDevices;
       mask.mask_len = mem::size_of::<[c_uchar; 4]>() as i32;
