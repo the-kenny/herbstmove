@@ -10,7 +10,7 @@ It's written in Rust.
 
 # Installation
 
-    cargo build -- release
+    cargo build --release
 
 # Usage
 
