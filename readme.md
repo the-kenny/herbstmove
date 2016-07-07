@@ -16,12 +16,11 @@ It's written in Rust.
 
     ./herbstmove
 
-# Bugs
-
-- Moving the focus to an empty frame in Herbstluftwm isn't handled
-  gracefully (will center the cursor on the center of the root
-  window).
+# TODO
 
 - Error Handling is missing for most calls to X11.
 
-- Empty frames (in Herbstluftwm) are handled in a strange manner
+- Empty frames (in Herbstluftwm) aren't handled (herbstluft focuses
+  the root window)
+
+- Test more window managers
