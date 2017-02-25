@@ -1,5 +1,4 @@
 extern crate x11;
-extern crate libc;
 extern crate getopts;
 
 use x11::xlib::*;
