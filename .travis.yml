@@ -7,4 +7,6 @@ rust:
 addons:
     apt:
       packages:
-        - xvfb
+        - libx11-dev
+        - libxi-dev
+
